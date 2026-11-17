@@ -1,0 +1,26 @@
+# Exclude documents folder
+documents/
+
+# Node.js
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+
+# Go
+vendor/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+aeb_project_background.txt
