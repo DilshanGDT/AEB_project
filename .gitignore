@@ -23,4 +23,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Project specific files
 aeb_project_background.txt
