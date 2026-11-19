@@ -3,30 +3,36 @@ package main
 import (
 	"log"
 
+	"github.com/gin-gonic/gin"
+
 	"aeb-project/backend/configs"
 	"aeb-project/backend/internal/database"
+	"aeb-project/backend/internal/routes"
 )
 
 func main() {
 
-	// Load application configuration
+	// Load configuration
 	cfg := configs.LoadConfig()
 
 	// Connect to MySQL
 	db := database.ConnectDB(cfg)
 	defer db.Close()
 
+	// Initialize Gin
+	router := gin.Default()
+
+	// Configure routes
+	routes.SetupRoutes(router, db)
+
+	// Start HTTP server
+	log.Println("Successfully connected to MySQL database!")
 	log.Println("AEB Bond Management Backend Started")
+	log.Println("Server running at http://localhost:8080")
 
-	// Your application initialization will go here.
-	_ = db
+	err := router.Run(":8080")
 
-	var dbName string
-
-	err := db.QueryRow("SELECT DATABASE()").Scan(&dbName)
 	if err != nil {
-		log.Fatal("Database verification failed:", err)
+		log.Fatal("Failed to start server:", err)
 	}
-
-	log.Println("Connected Database:", dbName)
 }
